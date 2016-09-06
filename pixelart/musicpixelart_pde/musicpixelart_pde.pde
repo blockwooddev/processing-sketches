@@ -34,10 +34,10 @@ class BeatListener implements AudioListener
 
 PImage img;  // Declare a variable of type PImage
 color swap = color(153,255, 255);
-color replace = color(random(255), random(255), random(255));
+
 int i = 0;
 
-void replaceColor(PImage img) {
+void replaceColor(PImage img, color replace) {
   img.loadPixels();
   
   //select a random pixel
@@ -68,9 +68,7 @@ void setup() {
   // Make a new instance of a PImage by loading an image file
   img = loadImage("art.jpg");
   //img = loadImage("sodacan.png");
-  
-  replaceColor(img);
-  
+
   minim = new Minim(this);
   
   song = minim.loadFile("test.mp3", 1024);
@@ -106,8 +104,8 @@ void draw() {
   if ( kickDetect.isRange(kickLowB, kickHighB, kickNumberOfOnsetsThreshold) || 
        snareDetect.isRange(lowBand, highBand, numberOfOnsetsThreshold) ||
        hatDetect.isHat()) {
-    replace = color(random(255), random(255), random(255));
-    replaceColor(img);
+    color replace = color(random(255), random(255), random(255));
+    replaceColor(img, replace);
   }
 
   image(img,0,0);
